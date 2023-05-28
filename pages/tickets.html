@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COMPRAR TICKETS</title>
+</head>
+    <h1>Resultado de la API:</h1>
+    <div id="weather-info"></div>
+<body>
+       
+    <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="conferencia.html">CONFERENCIA</a></li>
+        <li><a href="oradores.html">LOS ORADORES</a></li>
+        <li><a href="fecha.html">FECHA Y LUGAR</a></li>
+        <li><a href="formulario_oradores.html">CONVIÉRTETE EN ORADOR</a></li>
+    </ul>
+    <script>
+        // Obtén una referencia al elemento div donde mostrarás la información del clima
+        var weatherDiv = document.getElementById("weather-info");
+    
+        // URL de la API de OpenWeatherMap con tu clave de API y la ubicación deseada
+        var apiKey = "5e867ca3c961dae82b5e59e4681ee187";
+        var url = "https://api.openweathermap.org/data/2.5/weather?q="  + "&appid=" + apiKey;
+    
+        // Realiza la solicitud a la API utilizando fetch()
+        fetch(url)
+          .then(response => response.json())
+          .then(data => {
+            // Manipula los datos recibidos de la API para mostrar la información del clima
+            var weatherData = "Ciudad: " + data.name + "<br>" +
+                              "Clima: " + data.weather[0].main + "<br>" +
+                              "Descripción: " + data.weather[0].description + "<br>" +
+                              "Temperatura: " + (data.main.temp - 273.15).toFixed(2) + " °C<br>" +
+                              "Humedad: " + data.main.humidity + "%";
+    
+            weatherDiv.innerHTML = weatherData;
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            weatherDiv.innerHTML = "Ocurrió un error al obtener la información del clima.";
+          });
+      </script>  
+</body>
+</html>
